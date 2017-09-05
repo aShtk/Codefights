@@ -1,0 +1,6 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE countriesInfo()
+BEGIN
+SELECT COUNT(name) as number, SUM(population) / COUNT(name) as average, SUM(population) as total
+FROM countries;
+END

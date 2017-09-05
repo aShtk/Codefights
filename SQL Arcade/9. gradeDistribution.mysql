@@ -1,0 +1,8 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE gradeDistribution()
+BEGIN
+select Name, ID
+from Grades
+where (Final > Midterm1 / 2 + Midterm2 / 2) AND (Final > Final / 2 + Midterm1 / 4 + Midterm2 / 4)
+order by left(name,3) asc, ID asc;
+END

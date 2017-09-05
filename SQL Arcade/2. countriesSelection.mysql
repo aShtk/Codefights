@@ -1,0 +1,5 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE countriesSelection()
+SELECT *
+FROM countries
+WHERE continent = 'Africa'

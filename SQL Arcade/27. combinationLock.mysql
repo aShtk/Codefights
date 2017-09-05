@@ -1,0 +1,19 @@
+CREATE PROCEDURE combinationLock()
+BEGIN
+SELECT CEIL(ROUND(exp(sum(log(CHAR_LENGTH(characters)))),2)) as combinations
+FROM discs;
+END
+
+/* @kitcat solution, better with variables
+CREATE PROCEDURE combinationLock()
+BEGIN
+    SELECT
+        @c := @c * LENGTH(characters) AS `combinations`
+    FROM
+        discs,
+        (SELECT @c := 1) AS counter
+    ORDER BY
+        `combinations` DESC
+    LIMIT
+        1;
+END*/
