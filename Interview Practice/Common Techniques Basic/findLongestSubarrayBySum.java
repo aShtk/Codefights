@@ -18,5 +18,4 @@ int[] findLongestSubarrayBySum(int s, int[] arr) {
     
     if(bright == 0) return new int[] {-1};
     else return new int[] {bleft, bright};
-
 }
