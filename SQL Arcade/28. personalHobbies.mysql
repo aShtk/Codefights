@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 /*Please add ; after each select statement*/
 CREATE PROCEDURE personalHobbies()
 BEGIN
 SELECT name
 FROM people_hobbies
 WHERE hobbies & 1 AND hobbies & 2;
+=======
+/*Please add ; after each select statement*/
+CREATE PROCEDURE personalHobbies()
+BEGIN
+SELECT name
+FROM people_hobbies
+WHERE hobbies & 1 AND hobbies & 2;
+>>>>>>> 2d88cf2e67eb61dc49d4ec0af859953dd0e7aa68
 END
