@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 CREATE PROCEDURE interestClub()
     SELECT name
     FROM people_interests
     WHERE interests & 1 AND interests & 8
     ORDER BY name
+=======
+CREATE PROCEDURE interestClub()
+    SELECT name
+    FROM people_interests
+    WHERE interests & 1 AND interests & 8
+    ORDER BY name
+>>>>>>> d81d330a1dc1d0287d056495ffb05e736ba959a7
