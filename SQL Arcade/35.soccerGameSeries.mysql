@@ -1,0 +1,6 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE soccerGameSeries()
+BEGIN
+SELECT IF(SUM(first_team_score - second_team_score) > SUM(second_team_score - first_team_score), 1, IF(SUM(second_team_score - first_team_score) > SUM(first_team_score - second_team_score), 2, IF(SUM(first_team_score) > SUM(second_team_score), 1, IF(SUM(second_team_score) > SUM(first_team_score), 2,IF((SUM(CASE WHEN(match_host = 2) THEN first_team_score ELSE 0 END)) > (SUM(CASE WHEN(match_host = 1) THEN second_team_score ELSE 0 END)), 1, IF((SUM(CASE WHEN(match_host = 2) THEN first_team_score ELSE 0 END)) < (SUM(CASE WHEN(match_host = 1) THEN second_team_score ELSE 0 END)), 2, 0)))))) as winner
+FROM scores;
+END
