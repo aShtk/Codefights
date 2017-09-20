@@ -1,0 +1,11 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE alarmClocks()
+BEGIN
+SET @date_start := date_add((SELECT input_date FROM userInput), INTERVAL 7 DAY);
+SET @end_date := (SELECT YEAR(input_date) FROM userInput);
+WHILE @date_start <= @end_date DO
+    INSERT INTO userInput VALUES (@date_start);
+    SET @date_start = date_add(@date_start, INTERVAL 7 DAY);
+  END WHILE;
+SELECT input_date AS alarm_date FROM userInput;
+END
