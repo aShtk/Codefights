@@ -1,0 +1,12 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE salaryDifference()
+BEGIN
+SELECT IFNULL(((SELECT COUNT(name) * salary sum1
+        FROM employees u
+        WHERE salary IN (SELECT MAX(salary) FROM employees))
+    -
+        (SELECT COUNT(name) * salary sum2
+        FROM employees v
+        WHERE salary IN (SELECT MIN(salary) FROM employees))), '0')
+difference;
+END
