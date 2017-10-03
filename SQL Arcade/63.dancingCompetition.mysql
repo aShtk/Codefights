@@ -1,0 +1,20 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE dancingCompetition()
+BEGIN
+SET @minf = (SELECT MIN(first_criterion) FROM scores);
+SET @maxf = (SELECT MAX(first_criterion) FROM scores);
+SET @mins = (SELECT MIN(second_criterion) FROM scores);
+SET @maxs = (SELECT MAX(second_criterion) FROM scores);
+SET @mint = (SELECT MIN(third_criterion) FROM scores);
+SET @maxt = (SELECT MAX(third_criterion) FROM scores);
+
+SELECT s.*
+FROM scores s
+JOIN (SELECT arbiter_id,
+        CASE WHEN (first_criterion <= @minf OR first_criterion >= @maxf) THEN 1 ELSE 0 END
+      + CASE WHEN (second_criterion <= @mins OR second_criterion >= @maxs) THEN 1 ELSE 0 END
+      + CASE WHEN (third_criterion <= @mint OR third_criterion >= @maxt) THEN 1 ELSE 0 END as lmt
+      FROM scores
+) r
+ON s.arbiter_id = r.arbiter_id AND r.lmt < 2;
+END
