@@ -1,0 +1,23 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE trackingSystem()
+BEGIN
+SELECT g.anonymous_id anonym_id, g.last_null, f.first_notnull
+FROM(
+     (SELECT t.anonymous_id, t.event_name first_notnull
+      FROM tracks t
+      JOIN (SELECT anonymous_id, MIN(received_at) AS mindate 
+           FROM tracks 
+           WHERE user_id IS NOT NULL 
+           GROUP BY anonymous_id) x
+      ON t.anonymous_id = x.anonymous_id AND t.received_at = x.mindate) f
+RIGHT JOIN
+      (SELECT t.anonymous_id, t.event_name last_null
+      FROM tracks t
+      JOIN (SELECT anonymous_id, MAX(received_at) AS maxdate 
+            FROM tracks 
+            WHERE user_id IS NULL 
+            GROUP BY anonymous_id) y
+      ON t.anonymous_id = y.anonymous_id AND t.received_at = y.maxdate) g
+ON f.anonymous_id = g.anonymous_id)
+ORDER BY anonym_id;
+END
