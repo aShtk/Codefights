@@ -1,0 +1,10 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE consecutiveIds()
+BEGIN
+ALTER TABLE itemIds
+DROP PRIMARY KEY;
+ALTER TABLE itemIds
+ADD newId INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (newId);
+SELECT id oldId, newId
+FROM itemIds;
+END

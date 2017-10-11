@@ -1,0 +1,11 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE holidayEvent()
+BEGIN
+SELECT DISTINCT buyer_name winners
+FROM(
+    SELECT buyer_name, @t := @t + 1 time
+    FROM purchases, (SELECT @t := 0) d
+    ) y
+WHERE time % 4 = 0
+ORDER BY buyer_name;
+END

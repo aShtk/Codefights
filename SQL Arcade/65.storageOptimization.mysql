@@ -1,0 +1,16 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE storageOptimization()
+BEGIN
+(SELECT id, 'name' column_name, name as value
+FROM workers_info
+WHERE name IS NOT NULL)
+UNION
+(SELECT id, 'date_of_birth' column_name, date_of_birth as value
+FROM workers_info
+WHERE date_of_birth IS NOT NULL)
+UNION
+(SELECT id, 'salary' column_name, salary as value
+FROM workers_info
+WHERE salary IS NOT NULL)
+ORDER BY id, FIELD(column_name, 'name', 'date_of_birth', 'salary');
+END
