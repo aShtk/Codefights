@@ -1,0 +1,10 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE findTable()
+BEGIN
+SELECT  TABLE_NAME tab_name, 
+        COLUMN_NAME col_name, 
+        DATA_TYPE data_type 
+FROM information_schema.COLUMNS
+WHERE TABLE_NAME REGEXP BINARY '^e.*s$'
+ORDER BY 1, 2;
+END

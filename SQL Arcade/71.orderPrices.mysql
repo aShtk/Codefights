@@ -1,0 +1,23 @@
+DROP FUNCTION IF EXISTS get_total;
+CREATE FUNCTION get_total(items VARCHAR(45)) RETURNS INT DETERMINISTIC
+BEGIN
+    SET @total := 0;
+    WHILE (@b := locate(';', items)) do
+        SET @ind = LEFT(items, @b);
+        SET @price = (SELECT price FROM item_prices WHERE id = @ind);
+        SET @total = @total + @price ;
+        SET items = SUBSTRING(items, @b +1);
+    END WHILE;
+SET @total = @total + (SELECT price FROM item_prices WHERE id = items);
+RETURN @total;
+END;
+
+CREATE PROCEDURE orderPrices()
+BEGIN
+    SELECT id, buyer, get_total(items) AS total_price
+    FROM orders
+    ORDER BY id;
+END;
+
+
+/*PLEASE CHECK kov solution, so short and simple !*/

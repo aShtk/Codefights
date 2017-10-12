@@ -1,0 +1,15 @@
+DROP FUNCTION IF EXISTS response;
+CREATE FUNCTION response(name VARCHAR(40)) RETURNS VARCHAR(200) DETERMINISTIC
+BEGIN
+    SET @n := SUBSTRING_INDEX(name,' ',1);
+    SET @n := CONCAT(UCASE(LEFT(@n, 1)),LCASE(SUBSTRING(@n, 2)));
+    SET @f := SUBSTRING_INDEX(name,' ',-1);
+    SET @f := CONCAT(UCASE(LEFT(@f, 1)),LCASE(SUBSTRING(@f, 2)));
+    RETURN CONCAT('Dear ', @n, ' ', @f, '! We received your message and will process it as soon as possible. Thanks for using our service. FooBar On! - FooBarIO team.');
+END;
+
+CREATE PROCEDURE customerMessages()
+BEGIN
+    SELECT id, name, response(name) AS response
+    FROM customers;
+END;
