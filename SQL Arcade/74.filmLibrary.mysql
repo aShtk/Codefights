@@ -1,0 +1,18 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE filmLibrary()
+BEGIN
+SELECT s.actor, a.age
+FROM starring_actors s
+LEFT JOIN actor_ages a
+ON s.actor = a.actor
+WHERE movie_name IN (
+SELECT movie
+FROM movies
+WHERE genre = (SELECT genre
+               FROM (SELECT genre, COUNT(*) as postings
+                     FROM movies
+                     GROUP BY genre
+                     ) r
+              ORDER BY postings DESC LIMIT 1))
+ORDER BY a.age DESC, s.actor;
+END
