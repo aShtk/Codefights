@@ -1,0 +1,9 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE freeSeats()
+BEGIN
+SELECT f.flight_id flight_id,
+        ((SELECT number_of_seats FROM planes WHERE plane_id = f.plane_id) -
+        IFNULL((SELECT SUM(1) FROM purchases WHERE flight_id = f.flight_id), 0)) free_seats
+FROM flights f
+ORDER BY flight_id;
+END

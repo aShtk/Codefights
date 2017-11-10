@@ -1,0 +1,25 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE bugsInComponent()
+BEGIN
+SELECT b.title AS bug_title, c.title AS component_title, s.cnt AS bugs_in_component
+FROM (
+  SELECT bug_num, component_id
+  FROM BugComponent WHERE bug_num IN (
+     SELECT bug_num
+     FROM BugComponent
+     GROUP by bug_num
+     HAVING COUNT(bug_num) > 1)
+  ) r
+JOIN (
+  SELECT 
+    bug_num, component_id, COUNT(component_id) AS cnt
+    FROM BugComponent
+    GROUP by component_id  
+  ) s
+ON r.component_id = s.component_id
+JOIN Component c
+ON c.id = r.component_id
+JOIN Bug b
+on b.num = r.bug_num
+ORDER BY s.cnt DESC, r.component_id, r.bug_num;
+END
